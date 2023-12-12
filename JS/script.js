@@ -190,20 +190,3 @@ function clearForm() {
 }
 
 
-/* fetch('https://striveschool-api.herokuapp.com/api/product/6578a1d026761400183c3808', {
-    method: 'DELETE',
-    headers: {
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc4NDMxMGMwNTgzNTAwMTg1MjMxOWYiLCJpYXQiOjE3MDIzOTA2ODYsImV4cCI6MTcwMzYwMDI4Nn0.PRXfvk4HTjV2xiWScsiBTwmEPDZ1DLMUuwBsEce8s_k"
-    }
-})
-.then(response => {
-    if (response.ok) {
-        console.log('Tutti i dati sono stati cancellati con successo!');
-    } else {
-        console.error('Qualcosa è andato storto durante l\'eliminazione dei dati');
-    }
-})
-.catch(error => {
-    console.error('Errore durante la richiesta DELETE:', error);
-});
- */
