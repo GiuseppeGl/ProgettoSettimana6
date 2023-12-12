@@ -143,10 +143,43 @@ function createProductCard(product) {
             <p class="card-text">${product.description}</p>
             <p class="card-text">Price: $${product.price}</p>
             <p class="card-text">Brand: ${product.brand}</p>
-        </div>
-    `;
-    return card;
-}
+            <button class="btn btn-danger delete-btn">Delete</button>
+            </div>
+        `;
+    
+        // Aggiungi un gestore di eventi per il click del pulsante di eliminazione
+        let deleteButton = card.querySelector('.delete-btn');
+        deleteButton.addEventListener('click', () => {
+            // Chiama la funzione per eliminare l'elemento
+            deleteProduct(product._id);
+        });
+    
+        return card;
+    }
+
+    function deleteProduct(productId) {
+        fetch(`https://striveschool-api.herokuapp.com/api/product/${productId}`, {
+            method: 'DELETE',
+            headers: {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc4NDMxMGMwNTgzNTAwMTg1MjMxOWYiLCJpYXQiOjE3MDIzOTA2ODYsImV4cCI6MTcwMzYwMDI4Nn0.PRXfvk4HTjV2xiWScsiBTwmEPDZ1DLMUuwBsEce8s_k"
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Rimuovi la card dal DOM dopo l'eliminazione
+                let deletedCard = document.querySelector(`[data-product-id="${productId}"]`);
+                if (deletedCard) {
+                    deletedCard.remove();
+                }
+                fetchProducts();
+            } else {
+                console.error('Errore durante l\'eliminazione dell\'elemento');
+            }
+        })
+        .catch(error => {
+            console.error('Errore durante la richiesta DELETE:', error);
+        });
+    }
 
 function clearForm() {
     document.querySelector('#text1').value = '';
