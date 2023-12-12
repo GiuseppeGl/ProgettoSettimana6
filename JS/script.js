@@ -42,39 +42,44 @@ headers: {
                     <input type="text" class="form-control" id="text5">
                 </div>
                 <button type="submit" id='submit' class="btn btn-primary mt-3">Submit</button>`
-    
+
                 let formInput = document.querySelector('#formInput');
                 formInput.appendChild(form);
 
                 form.addEventListener('submit', function(e){
                     e.preventDefault();
 
-                    let nome = document.querySelector('#text1').value;
+                    let name = document.querySelector('#text1').value;
                     let description = document.querySelector('#text2').value;
                     let brand = document.querySelector('#text3').value;
-                    let image = document.querySelector('#text4').value;
+                    let imageUrl = document.querySelector('#text4').value;
                     let price = document.querySelector('#text5').value;
 
                     let data = {
-                        nome: nome,
-                        description: description,
-                        brand: brand,
-                        image: image,
-                        price: price
-                    };
+                        "name": name,
+                        "description": description,
+                        "price": price,
+                        "imageUrl": imageUrl,
+                        "brand": brand
+                    }
 
                     fetch('https://striveschool-api.herokuapp.com/api/product/', {
                         method: 'POST',
                         headers: {
-                            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc4NDMxMGMwNTgzNTAwMTg1MjMxOWYiLCJpYXQiOjE3MDIzODAzMDQsImV4cCI6MTcwMzU4OTkwNH0.0BHc3UjedXKtwSNG9oBFH9l9wBb5Pvjmr5TjystjiYI",
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc4NDMxMGMwNTgzNTAwMTg1MjMxOWYiLCJpYXQiOjE3MDIzODAzMDQsImV4cCI6MTcwMzU4OTkwNH0.0BHc3UjedXKtwSNG9oBFH9l9wBb5Pvjmr5TjystjiYI"
                         },
                         body: JSON.stringify(data),
-                        
                     })
                     .then(response => response.json())
                     .then(data => {
                         console.log('Risposta dal server:', data);
-                        // Esegui qui le azioni desiderate dopo aver inviato i dati
+                        // Pulizia dei campi del form
+                        document.querySelector('#text1').value = '';
+                        document.querySelector('#text2').value = '';
+                        document.querySelector('#text3').value = '';
+                        document.querySelector('#text4').value = '';
+                        document.querySelector('#text5').value = '';
                     })
                     .catch((error) => {
                         console.error('Errore durante la richiesta:', error);
@@ -83,14 +88,9 @@ headers: {
 
                 })
 
-
-                
-
             }) 
         } 
-    }addProduct();
+    }
 
-
-    })
-
-
+    addProduct();
+});
