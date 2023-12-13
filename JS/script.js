@@ -209,7 +209,7 @@ function createProductCard(product) {
 
 function createCardIndex(product) {
     let card = document.createElement('div');
-    card.classList.add('card');
+    card.classList.add('card', 'col', 'm-4', 'p-0');
     card.innerHTML = `
         <img src="${product.imageUrl}" class="card-img-top" alt="${product.name}">
         <div class="card-body">
