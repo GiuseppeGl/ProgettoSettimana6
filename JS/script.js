@@ -220,6 +220,13 @@ function createCardIndex(product) {
             <button class="btn btn-primary delete-btn">Edit</button>
             <button class="btn btn-success send-btn">Description</button>
         </div>`;
+
+        let editButton = card.querySelector('.send-btn');
+        editButton.addEventListener ('click', () => {
+
+            console.log('ti ho premuto')
+            //quì inserire invio dettaglio
+        })
         
         return card;
 }
