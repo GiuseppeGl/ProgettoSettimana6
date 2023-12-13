@@ -46,11 +46,24 @@ function appendDataToIndex(products) {
     });
 }
 
+let isFormOpen = false;
 
 function addProduct() {
     let button = document.querySelector('#btn');
     if (button) {
         button.addEventListener('click', () => {
+            if (!isFormOpen) {
+                createForm();
+            } else {
+                console.log('Form già aperto, attendere l\'invio o la chiusura prima di crearne un altro.');
+            }
+        });
+    }
+}
+
+                function createForm() {
+                    isFormOpen = true;
+
             let form = document.createElement('form');
                 
             form.innerHTML = `
@@ -81,6 +94,7 @@ function addProduct() {
 
             form.addEventListener('submit', function(e){
                 e.preventDefault();
+               
 
                 let name = document.querySelector('#text1').value;
                 let description = document.querySelector('#text2').value;
@@ -110,15 +124,14 @@ function addProduct() {
                     clearForm();
                     form.remove();
                     fetchProducts();
+                    isFormOpen = false;
+                  
                 })
                 .catch((error) => {
                     console.error('Errore durante la richiesta:', error);
                 });
             });
-        });
-    }
-}
-
+        } 
 
 
 
