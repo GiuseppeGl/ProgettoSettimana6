@@ -12,9 +12,39 @@ headers: {
   .catch((error) => console.log("Error!! " + error)); */
 
   document.addEventListener('DOMContentLoaded', () => {
-    addProduct();
-    fetchProducts();
+    if (window.location.pathname.includes('back-office.html')) {
+        addProduct();
+        fetchProducts();
+    } else if (window.location.pathname.includes('index.html')) {
+        fetchDataAndAppend();
+    }
 });
+
+function fetchDataAndAppend() {
+    fetch('https://striveschool-api.herokuapp.com/api/product/', {
+        headers: {
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc4NDMxMGMwNTgzNTAwMTg1MjMxOWYiLCJpYXQiOjE3MDI0NjQyNzUsImV4cCI6MTcwMzY3Mzg3NX0.bJV3SfNb1WlfJHXHPGIP0z04W9bu8aia69BAScOKEoM"
+        },
+    })
+    .then(response => response.json())
+    .then(products => {
+        appendDataToIndex(products);
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+}
+
+function appendDataToIndex(products) {
+    let cardContainer = document.querySelector('#sentCardContainer');
+    cardContainer.innerHTML = '';
+
+    products.forEach(product => {
+        let card = createCardIndex(product);
+        cardContainer.appendChild(card);
+    });
+}
+
 
 function addProduct() {
     let button = document.querySelector('#btn');
@@ -189,32 +219,6 @@ function sendProductToHomepage(product) {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Recupera i parametri dell'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
-    const description = urlParams.get('description');
-    const price = urlParams.get('price');
-    const brand = urlParams.get('brand');
-    const imageUrl = urlParams.get('imageUrl');
-
-    if (name && description && price && brand && imageUrl) {
-        // Utilizza i dati come desiderato
-        console.log('Name:', name);
-        console.log('Description:', description);
-        console.log('Price:', price);
-        console.log('Brand:', brand);
-        console.log('Image URL:', imageUrl);
-
-        // Puoi ora appendere i dati nella pagina come preferisci
-        // Ad esempio, puoi creare una nuova card e aggiungerla a un elemento sulla pagina
-        const cardContainer = document.querySelector('#sentCardContainer');
-        const newCard = createCardIndex({ name, description, price, brand, imageUrl });
-        cardContainer.appendChild(newCard);
-    }
-});
-
-
 
 
 
@@ -249,3 +253,32 @@ function clearForm() {
     document.querySelector('#text4').value = '';
     document.querySelector('#text5').value = '';
 }
+
+
+
+/* 
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Recupera i parametri dell'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const description = urlParams.get('description');
+    const price = urlParams.get('price');
+    const brand = urlParams.get('brand');
+    const imageUrl = urlParams.get('imageUrl');
+
+    if (name && description && price && brand && imageUrl) {
+        // Utilizza i dati come desiderato
+        console.log('Name:', name);
+        console.log('Description:', description);
+        console.log('Price:', price);
+        console.log('Brand:', brand);
+        console.log('Image URL:', imageUrl);
+
+        // Puoi ora appendere i dati nella pagina come preferisci
+        // Ad esempio, puoi creare una nuova card e aggiungerla a un elemento sulla pagina
+        const cardContainer = document.querySelector('#sentCardContainer');
+        const newCard = createCardIndex({ name, description, price, brand, imageUrl });
+        cardContainer.appendChild(newCard);
+    }
+}); */
