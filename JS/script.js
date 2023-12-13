@@ -176,9 +176,9 @@ function displayProducts(products) {
 
 function createProductCard(product) {
     let card = document.createElement('div');
-    card.classList.add('card');
+    card.classList.add('card', 'col', 'm-4');
     card.innerHTML = `
-        <img src="${product.imageUrl}" class="card-img-top" alt="${product.name}">
+        <img src="${product.imageUrl}" class="card img-fluid" alt="${product.name}">
         <div class="card-body">
             <h5 class="card-title">Marca: ${product.name}</h5>
             <p class="card-text">Description: ${product.description}</p>
