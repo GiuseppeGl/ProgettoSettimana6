@@ -35,6 +35,7 @@ function fetchDataAndAppend() {
     });
 }
 
+
 function appendDataToIndex(products) {
     let cardContainer = document.querySelector('#sentCardContainer');
     cardContainer.innerHTML = '';
